@@ -13,7 +13,7 @@ class ProductController extends Controller
             ['name' => 'Pasta', 'price' => 300, 'image' => 'images/3.PNG'],
             ['name' => 'Orange Juice', 'price' => 1000, 'image' => 'images/download_22.jpg'],
             ['name' => 'Sause', 'price' => 1000, 'image' => 'images/Gilleth Shave Gel (2).png'],
-            ['name' => 'Oats', 'price' => 2.99, 'image' => 'images/Screenshot_20250319_185957_WhatsApp.jpg'],
+            ['name' => 'Oats', 'price' => 2000, 'image' => 'images/Screenshot_20250319_185957_WhatsApp.jpg'],
         ];
 
         return view('products', compact('products'));
