@@ -28,8 +28,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); // view cart
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add'); // add to cart
+    Route::delete('/cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove'); // remove item
 });
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');

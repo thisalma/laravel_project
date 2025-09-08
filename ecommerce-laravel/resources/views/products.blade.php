@@ -14,9 +14,17 @@
                         <div class="p-4 text-center">
                             <h3 class="text-lg font-semibold text-pink-600">{{ $product['name'] }}</h3>
                             <p class="text-gray-700 mt-2">Rs. {{ number_format($product['price'], 2) }}</p>
-                            <button class="mt-4 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
-                                Add to Cart
-                            </button>
+
+                            <!-- Add to Cart Form -->
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="name" value="{{ $product['name'] }}">
+                                <input type="hidden" name="price" value="{{ $product['price'] }}">
+                                <input type="hidden" name="image" value="{{ $product['image'] }}">
+                                <button type="submit" class="mt-4 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                                    Add to Cart
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @endforeach

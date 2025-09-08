@@ -15,9 +15,10 @@
                         {{ __('Products') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+                    <x-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
                         {{ __('Cart') }}
                     </x-nav-link>
+
 
                     <x-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
                         {{ __('Orders') }}
@@ -87,9 +88,10 @@
                 {{ __('Products') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
-                {{ __('Cart') }}
-            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
+    {{ __('Cart') }}
+</x-responsive-nav-link>
+
 
             <x-responsive-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
                 {{ __('Orders') }}
