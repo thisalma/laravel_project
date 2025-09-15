@@ -3,31 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|unique:users',
-            'email'    => 'required|email|unique:users',
+            'username' => 'required|string|max:255|unique:users,username',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:6',
         ]);
 
         $user = User::create([
-            'name'     => $request->username,
-            'email'    => $request->email,
+            'username' => $request->username,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('flutter_token')->plainTextToken;
+        // Create Sanctum token
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user'  => $user,
             'token' => $token,
+            'user' => $user
         ], 201);
     }
 
@@ -38,18 +40,21 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $user = User::where('name', $request->username)->first();
+        $user = User::where('username', $request->username)
+            ->orWhere('email', $request->username)
+            ->first();
+
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $user->createToken('flutter_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user'  => $user,
             'token' => $token,
-        ]);
+            'user' => $user
+        ], 200);
     }
 
     public function profile(Request $request)
@@ -59,7 +64,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
-        return response()->json(['message' => 'Logged out']);
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }
