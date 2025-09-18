@@ -17,11 +17,24 @@
             </div>
         </div>
 
-        <!-- Full-Width Short Image -->
+        <!-- Full-Width Image -->
         <div class="w-screen overflow-hidden mt-6">
             <img src="{{ asset('images/food-pictures.jpg') }}" 
                  alt="Food Image" 
                  class="w-full h-[150px] sm:h-[200px] md:h-[250px] object-cover">
+        </div>
+
+        <!-- Two Small Boxes -->
+        <div class="mt-8 flex justify-between max-w-7xl mx-auto sm:px-6 lg:px-8 gap-4">
+            <!-- Left Box: FOOD -->
+            <div class="w-1/2 bg-pink-400 text-white font-bold text-center py-12 rounded-lg shadow-lg">
+                FOOD
+            </div>
+
+            <!-- Right Box: BEVERAGES -->
+            <div class="w-1/2 bg-blue-700 text-black font-bold text-center py-12 rounded-lg shadow-lg">
+                BEVERAGES
+            </div>
         </div>
     </div>
 </x-app-layout>
