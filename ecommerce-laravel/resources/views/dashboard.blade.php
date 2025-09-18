@@ -38,16 +38,16 @@
         </div>
 
         <!-- About Section: Text + Image -->
-        <div class="mt-12 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col md:flex-row items-start gap-8">
-            <!-- Left: Text Box -->
-            <div class="md:w-1/2 bg-white p-8 rounded-lg shadow-lg">
-                <h2 class="text-3xl font-bold text-pink-600 mb-4">About Foodies</h2>
-                <p class="text-gray-700 text-lg leading-relaxed">
-                    Foodies is a unique platform bringing high-quality exported food and beverages to Sri Lankan customers.
-                    We ensure authentic products and a seamless shopping experience, making it easier for people in Sri Lanka
-                    to enjoy international flavors at their doorstep.
-                </p>
-            </div>
+<div class="mt-16 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col md:flex-row items-start gap-15">
+    <!-- Left: Text Box -->
+    <div class="md:w-1/2 bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold text-pink-600 mb-4">About Foodies</h2>
+        <p class="text-gray-700 text-lg leading-relaxed">
+            Foodies is a unique platform bringing high-quality exported food and beverages to Sri Lankan customers.
+            We ensure authentic products and a seamless shopping experience, making it easier for people in Sri Lanka
+            to enjoy international flavors at their doorstep.
+        </p>
+    </div>
 
         
         </div>
