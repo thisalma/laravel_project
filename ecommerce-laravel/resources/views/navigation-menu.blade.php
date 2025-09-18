@@ -5,23 +5,23 @@
             <div class="flex">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('products') }}" :active="request()->routeIs('products')">
                         {{ __('Products') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
+                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
                         {{ __('Cart') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
                         {{ __('Orders') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                         {{ __('Profile') }}
                     </x-nav-link>
                 </div>
@@ -37,7 +37,7 @@
                             </button>
                         @else
                             <span class="inline-flex rounded-md">
-                                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none">
+                                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-lg font-semibold text-white bg-pink-600 hover:bg-pink-700 focus:outline-none">
                                     {{ Auth::user()->name }}
                                     <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -48,13 +48,13 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link href="{{ route('profile.show') }}">
+                        <x-dropdown-link class="text-lg" href="{{ route('profile.show') }}">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
                         <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
-                            <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                            <x-dropdown-link class="text-lg" href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -77,23 +77,23 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-pink-500">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('products') }}" :active="request()->routeIs('products')">
                 {{ __('Products') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
                 {{ __('Cart') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
                 {{ __('Orders') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
         </div>
