@@ -17,11 +17,11 @@
             </div>
         </div>
 
-        <!-- Full-Width Image Section -->
-        <div class="mt-6 w-screen">
+        <!-- Full-Width Short Image -->
+        <div class="w-screen overflow-hidden mt-6">
             <img src="{{ asset('images/food-pictures.jpg') }}" 
                  alt="Food Image" 
-                 class="w-full h-[400px] object-cover">
+                 class="w-full h-[150px] sm:h-[200px] md:h-[250px] object-cover">
         </div>
     </div>
 </x-app-layout>
