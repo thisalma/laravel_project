@@ -3,30 +3,41 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use App\Models\Product;
 
-class ProductList extends Component
+class ProductForm extends Component
 {
-    public $products = [];
+    use WithFileUploads;
 
-    public function mount()
+    public $name, $description, $price, $image;
+
+    protected $rules = [
+        'name' => 'required|min:3',
+        'description' => 'nullable',
+        'price' => 'required|numeric',
+        'image' => 'nullable|image|max:2048', // 2MB max
+    ];
+
+    public function save()
     {
-        // Example products — later you can load from DB
-        $this->products = [
-            ['name' => 'Pasta', 'price' => 300, 'image' => 'images/3.PNG'],
-            ['name' => 'Orange Juice', 'price' => 1000, 'image' => 'images/download_22.jpg'],
-            ['name' => 'Sauce', 'price' => 1000, 'image' => 'images/Gilleth Shave Gel (2).png'],
-            ['name' => 'Oats', 'price' => 2000, 'image' => 'images/Screenshot_20250319_185957_WhatsApp.jpg'],
-        ];
-    }
+        $this->validate();
 
-    public function addToCart($index)
-    {
-        $cart = session()->get('cart', []);
-        $cart[] = $this->products[$index];
-        session()->put('cart', $cart);
+        $path = null;
+        if ($this->image) {
+            $path = $this->image->store('products', 'public'); 
+        }
 
-        $this->emit('cartUpdated'); // notify Cart component
-        session()->flash('success', $this->products[$index]['name'] . ' added to cart!');
+        Product::create([
+            'name' => $this->name,
+            'description' => $this->description,
+            'price' => $this->price,
+            'image' => $path,
+        ]);
+
+        session()->flash('message', 'Product added successfully!');
+
+        $this->reset(); // reset form
     }
 
     public function render()
