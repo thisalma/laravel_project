@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // Dashboard
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-    // Products page (Blade + Livewire)
-    Route::view('/products', 'products')->name('products');
+ Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     // Cart routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');        // View cart
