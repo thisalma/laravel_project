@@ -5,23 +5,33 @@
             <div class="flex">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link class="text-lg font-semibold text-white" 
+                        href="{{ route('dashboard') }}" 
+                        :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('products') }}" :active="request()->routeIs('products')">
+                    <x-nav-link class="text-lg font-semibold text-white" 
+                        href="{{ route('products.index') }}" 
+                        :active="request()->routeIs('products.index')">
                         {{ __('Products') }}
                     </x-nav-link>
 
-                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
+                    <x-nav-link class="text-lg font-semibold text-white" 
+                        href="{{ route('cart.index') }}" 
+                        :active="request()->routeIs('cart.index')">
                         {{ __('Cart') }}
                     </x-nav-link>
 
-                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+                    <x-nav-link class="text-lg font-semibold text-white" 
+                        href="{{ route('orders.index') }}" 
+                        :active="request()->routeIs('orders.index')">
                         {{ __('Orders') }}
                     </x-nav-link>
 
-                    <x-nav-link class="text-lg font-semibold text-white" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    <x-nav-link class="text-lg font-semibold text-white" 
+                        href="{{ route('profile.show') }}" 
+                        :active="request()->routeIs('profile.show')">
                         {{ __('Profile') }}
                     </x-nav-link>
                 </div>
@@ -33,7 +43,9 @@
                     <x-slot name="trigger">
                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                <img class="h-8 w-8 rounded-full object-cover" 
+                                     src="{{ Auth::user()->profile_photo_url }}" 
+                                     alt="{{ Auth::user()->name }}" />
                             </button>
                         @else
                             <span class="inline-flex rounded-md">
@@ -77,23 +89,33 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-pink-500">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" 
+                href="{{ route('dashboard') }}" 
+                :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('products') }}" :active="request()->routeIs('products')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" 
+                href="{{ route('products.index') }}" 
+                :active="request()->routeIs('products.index')">
                 {{ __('Products') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" 
+                href="{{ route('cart.index') }}" 
+                :active="request()->routeIs('cart.index')">
                 {{ __('Cart') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" 
+                href="{{ route('orders.index') }}" 
+                :active="request()->routeIs('orders.index')">
                 {{ __('Orders') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link class="text-lg font-semibold text-white" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+            <x-responsive-nav-link class="text-lg font-semibold text-white" 
+                href="{{ route('profile.show') }}" 
+                :active="request()->routeIs('profile.show')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
         </div>

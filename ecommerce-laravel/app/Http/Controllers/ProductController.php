@@ -12,14 +12,9 @@ class ProductController extends Controller
     {
         $is_admin = $request->query('admin') === '1234';
 
-        $categories = Product::select('category')->distinct()->pluck('category');
-        $category_filter = $request->query('category', '');
+        $products = Product::orderBy('created_at', 'desc')->get();
 
-        $products = Product::when($category_filter, function ($q, $category_filter) {
-            $q->where('category', $category_filter);
-        })->orderBy('created_at', 'desc')->get();
-
-        return view('products.index', compact('products', 'categories', 'category_filter', 'is_admin'));
+        return view('products.index', compact('products', 'is_admin'));
     }
 
     // Store new product (admin)
@@ -35,7 +30,6 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'category' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
         ]);
 
@@ -48,7 +42,6 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'category' => $request->category,
             'image' => $imagePath,
         ]);
 

@@ -38,5 +38,5 @@ Route::delete('/products/{product}', [ProductController::class, 'destroy'])->nam
     Route::delete('/cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove'); // Remove item
 
     // Orders
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
