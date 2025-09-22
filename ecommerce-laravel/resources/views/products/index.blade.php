@@ -17,7 +17,9 @@
             <textarea name="description" placeholder="Description" class="border p-2 w-full" required></textarea>
             <input type="number" step="0.01" name="price" placeholder="Price" class="border p-2 w-full" required>
             <input type="file" name="image" class="border p-2 w-full">
-            <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded">Add Product</button>
+            <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                Add Product
+            </button>
         </form>
         @endif
 
@@ -36,14 +38,18 @@
                     <!-- Add to Cart Button -->
                     <form action="{{ route('cart.add', $product->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Add to Cart</button>
+                        <button type="submit" class="mt-2 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                            Add to Cart
+                        </button>
                     </form>
 
                     @if($is_admin)
                     <form action="{{ route('products.destroy', $product) }}?admin=1234" method="POST" onsubmit="return confirm('Are you sure?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="mt-2 px-2 py-1 bg-red-500 text-white rounded">Remove</button>
+                        <button type="submit" class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                            Remove
+                        </button>
                     </form>
                     @endif
                 </div>
@@ -64,7 +70,9 @@
                         <!-- Add to Cart in Modal -->
                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Add to Cart</button>
+                            <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                                Add to Cart
+                            </button>
                         </form>
                     </div>
                 </div>
