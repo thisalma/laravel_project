@@ -33,10 +33,9 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     // Cart routes
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');        // View cart
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');       // Add item to cart
-    Route::delete('/cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove'); // Remove item
-
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
     // Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
