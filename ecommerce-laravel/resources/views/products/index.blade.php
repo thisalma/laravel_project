@@ -55,25 +55,32 @@
                 </div>
 
                 <!-- Modal -->
-                <div id="modal-{{ $product->id }}" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-                    <div class="bg-white p-6 rounded shadow-lg w-1/2 relative">
-                        <!-- Close Button -->
-                        <button onclick="closeModal({{ $product->id }})" class="absolute top-2 right-2 text-gray-600">&times;</button>
-                        
-                        <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/400' }}" 
-                             class="w-full h-80 object-cover mb-4 rounded">
+                <div id="modal-{{ $product->id }}" 
+                     class="fixed inset-0 bg-black bg-opacity-50 hidden overflow-y-auto z-50">
+                    <div class="min-h-screen flex items-center justify-center p-6">
+                        <div class="bg-white rounded shadow-lg w-3/4 max-w-3xl relative p-6">
+                            <!-- Close Button -->
+                            <button onclick="closeModal({{ $product->id }})" 
+                                    class="absolute top-2 right-2 text-gray-600 text-2xl">&times;</button>
+                            
+                            <!-- Image Container -->
+                            <div class="w-full flex items-center justify-center mb-4">
+                                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/400' }}" 
+                                     class="max-h-[500px] max-w-full object-contain rounded">
+                            </div>
 
-                        <h2 class="text-2xl font-bold">{{ $product->name }}</h2>
-                        <p class="text-gray-600 mb-2">{{ $product->description }}</p>
-                        <p class="text-lg font-semibold mb-4">Rs. {{ number_format($product->price, 2) }}</p>
+                            <h2 class="text-2xl font-bold">{{ $product->name }}</h2>
+                            <p class="text-gray-600 mb-2">{{ $product->description }}</p>
+                            <p class="text-lg font-semibold mb-4">Rs. {{ number_format($product->price, 2) }}</p>
 
-                        <!-- Add to Cart in Modal -->
-                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
-                                Add to Cart
-                            </button>
-                        </form>
+                            <!-- Add to Cart in Modal -->
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -83,7 +90,7 @@
     <!-- Modal Script -->
     <script>
         function openModal(id) {
-            document.getElementById('modal-' + id).style.display = 'flex';
+            document.getElementById('modal-' + id).style.display = 'block';
         }
         function closeModal(id) {
             document.getElementById('modal-' + id).style.display = 'none';
