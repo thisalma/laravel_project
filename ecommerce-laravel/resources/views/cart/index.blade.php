@@ -29,11 +29,31 @@
                         @php $total = $item['price'] * $item['quantity']; $grandTotal += $total; @endphp
                         <tr>
                             <td class="border p-2">
-                                <img src="{{ $item['image'] ? asset('storage/' . $item['image']) : 'https://via.placeholder.com/100' }}" class="w-20 h-20 object-cover">
+                                <img src="{{ $item['image'] ? asset('storage/' . $item['image']) : 'https://via.placeholder.com/100' }}" 
+                                     class="w-20 h-20 object-cover">
                             </td>
                             <td class="border p-2">{{ $item['name'] }}</td>
                             <td class="border p-2">Rs. {{ number_format($item['price'], 2) }}</td>
-                            <td class="border p-2">{{ $item['quantity'] }}</td>
+                            <td class="border p-2 text-center">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <!-- Decrease Button -->
+                                    <form action="{{ route('cart.update', $id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="px-2 py-1 bg-pink-500 text-white rounded">−</button>
+                                    </form>
+
+                                    <!-- Quantity Display -->
+                                    <span class="px-2">{{ $item['quantity'] }}</span>
+
+                                    <!-- Increase Button -->
+                                    <form action="{{ route('cart.update', $id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="px-2 py-1 bg-pink-500 text-white rounded">+</button>
+                                    </form>
+                                </div>
+                            </td>
                             <td class="border p-2">Rs. {{ number_format($total, 2) }}</td>
                             <td class="border p-2">
                                 <form action="{{ route('cart.remove', $id) }}" method="POST">

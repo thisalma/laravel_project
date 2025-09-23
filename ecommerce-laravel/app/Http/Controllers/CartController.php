@@ -11,7 +11,6 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $cart = session()->get('cart', []);
-
         return view('cart.index', compact('cart'));
     }
 
@@ -19,7 +18,6 @@ class CartController extends Controller
     public function add(Request $request, Product $product)
     {
         $cart = session()->get('cart', []);
-
         $id = $product->id;
 
         if (isset($cart[$id])) {
@@ -38,11 +36,28 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Product added to cart!');
     }
 
-    // Remove product from cart
-    public function remove(Request $request, Product $product)
+    // Update product quantity (increase / decrease)
+    public function update(Request $request, $id)
     {
         $cart = session()->get('cart', []);
-        $id = $product->id;
+
+        if (isset($cart[$id])) {
+            if ($request->action === 'increase') {
+                $cart[$id]['quantity']++;
+            } elseif ($request->action === 'decrease') {
+                $cart[$id]['quantity'] = max(1, $cart[$id]['quantity'] - 1); // never go below 1
+            }
+
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
+    }
+
+    // Remove product from cart
+    public function remove(Request $request, $id)
+    {
+        $cart = session()->get('cart', []);
 
         if (isset($cart[$id])) {
             unset($cart[$id]);
