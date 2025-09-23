@@ -1,6 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-gray-800">Checkout</h2>
+        <div class="flex items-center space-x-4">
+            <!-- Back Button -->
+            <a href="{{ route('cart.index') }}" 
+               class="flex items-center px-3 py-1 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                <span class="text-lg mr-1">&larr;</span> Back
+            </a>
+            <h2 class="text-xl font-semibold text-gray-800">Checkout</h2>
+        </div>
     </x-slot>
 
     <div class="py-6 max-w-3xl mx-auto">
