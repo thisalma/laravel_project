@@ -66,7 +66,14 @@
                     <tr class="bg-gray-100 font-bold">
                         <td colspan="4" class="border p-2 text-right">Grand Total</td>
                         <td class="border p-2">Rs. {{ number_format($grandTotal, 2) }}</td>
-                        <td></td>
+                        <td class="p-2 text-center">
+                            <!-- Checkout Button -->
+                            <form action="{{ route('checkout.index') }}" method="GET">
+                                <button type="submit" class="px-4 py-2  bg-pink-500 text-white rounded hover:bg-green-700 transition">
+                                    Checkout
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>
