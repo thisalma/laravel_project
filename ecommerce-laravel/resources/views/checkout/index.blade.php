@@ -10,31 +10,80 @@
         </div>
     </x-slot>
 
-    <div class="py-6 max-w-3xl mx-auto">
-
+    <div class="py-6 max-w-4xl mx-auto">
         @if(empty($cart))
-            <p>Your cart is empty.</p>
+            <p class="text-center text-gray-600">Your cart is empty.</p>
         @else
-            <h3 class="text-lg font-bold mb-4">Order Summary</h3>
-            <ul class="mb-6">
-                @foreach($cart as $item)
-                    <li class="flex justify-between border-b py-2">
-                        <span>{{ $item['name'] }} (x{{ $item['quantity'] }})</span>
-                        <span>Rs. {{ number_format($item['price'] * $item['quantity'], 2) }}</span>
-                    </li>
-                @endforeach
-            </ul>
-
-            <div class="font-bold text-lg mb-4">
-                Total: Rs. {{ number_format($grandTotal, 2) }}
+            <!-- CUSTOMER INFO -->
+            <h3 class="text-lg font-bold mb-2">Customer Information</h3>
+            <div class="border p-4 rounded mb-6 bg-gray-50">
+                <p><strong>Name:</strong> {{ Auth::user()->name }}</p>
+                <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
+                <p><strong>Contact Number:</strong> {{ Auth::user()->contact_number ?? '-' }}</p>
+                <p><strong>Address:</strong> {{ Auth::user()->address ?? '-' }}</p>
             </div>
 
-            <form method="POST" action="#">
+            <!-- ITEMS SECTION -->
+            <h3 class="text-lg font-bold mb-4">Order Items</h3>
+            <div class="space-y-4 mb-6">
+                @foreach($cart as $item)
+                    <div class="flex items-center border-b pb-4">
+                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-24 h-24 object-cover rounded mr-4">
+                        <div class="flex-1">
+                            <p class="font-semibold">{{ $item['name'] }}</p>
+                            <p>Price: Rs. {{ number_format($item['price'], 2) }}</p>
+                            <p>Quantity: {{ $item['quantity'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- PAYMENT SECTION -->
+            <h3 class="text-lg font-bold mb-2">Payment Method</h3>
+            <form method="POST" action="{{ route('checkout.process') }}">
                 @csrf
-                <button type="submit" class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                <div class="flex space-x-4 mb-4">
+                    <label class="flex-1 border p-4 rounded cursor-pointer">
+                        <input type="radio" name="payment_method" value="Card Payment" class="mr-2" id="card" onclick="toggleCardDetails()" required>
+                        Card Payment
+                    </label>
+                    <label class="flex-1 border p-4 rounded cursor-pointer">
+                        <input type="radio" name="payment_method" value="Cash on Delivery" class="mr-2" id="cod" onclick="toggleCardDetails()">
+                        Cash on Delivery
+                    </label>
+                </div>
+
+                <!-- Card Details -->
+                <div id="card-details" class="hidden space-y-2 mb-4">
+                    <input type="text" name="card_name" placeholder="Cardholder Name" class="w-full border p-2 rounded">
+                    <input type="text" name="card_number" placeholder="Card Number" class="w-full border p-2 rounded">
+                    <input type="text" name="expiry" placeholder="MM/YY" class="w-full border p-2 rounded">
+                    <input type="text" name="cvv" placeholder="CVV" class="w-full border p-2 rounded">
+                </div>
+
+                <p class="text-red-600 text-sm mb-4">
+                    *Dear Customer, if your payment is Cash on Delivery, please ensure to have the correct amount on delivery.
+                </p>
+
+                <!-- TOTALS -->
+                <div class="text-right font-bold text-lg mb-4">
+                    <p>Subtotal: Rs. {{ number_format($subtotal, 2) }}</p>
+                    <p>Delivery Charge: Rs. {{ number_format($delivery_charge, 2) }}</p>
+                    <p>Total: Rs. {{ number_format($grandTotal, 2) }}</p>
+                </div>
+
+                <button type="submit" class="w-full bg-pink-500 text-white px-4 py-3 rounded hover:bg-pink-600 transition">
                     Confirm Order
                 </button>
             </form>
         @endif
     </div>
+
+    <script>
+        function toggleCardDetails() {
+            const cardBox = document.getElementById('card-details');
+            const cardRadio = document.getElementById('card');
+            cardBox.classList.toggle('hidden', !cardRadio.checked);
+        }
+    </script>
 </x-app-layout>

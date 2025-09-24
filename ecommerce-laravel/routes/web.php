@@ -40,6 +40,7 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
