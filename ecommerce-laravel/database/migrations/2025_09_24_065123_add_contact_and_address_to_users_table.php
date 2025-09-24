@@ -9,11 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
+ public function up(): void
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->string('contact_number')->nullable();
-        $table->text('address')->nullable();
+        $table->string('contact_number')->nullable()->after('email');
+        $table->string('address')->nullable()->after('contact_number');
     });
 }
 
@@ -23,5 +23,6 @@ public function down(): void
         $table->dropColumn(['contact_number', 'address']);
     });
 }
+
 
 };

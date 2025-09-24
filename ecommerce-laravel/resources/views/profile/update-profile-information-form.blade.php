@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{ __('Update your account\'s profile information, email address, contact number, and address.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -13,16 +13,16 @@
             <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input type="file" id="photo" class="hidden"
-                            wire:model.live="photo"
-                            x-ref="photo"
-                            x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
-                            " />
+                       wire:model.live="photo"
+                       x-ref="photo"
+                       x-on:change="
+                           photoName = $refs.photo.files[0].name;
+                           const reader = new FileReader();
+                           reader.onload = (e) => {
+                               photoPreview = e.target.result;
+                           };
+                           reader.readAsDataURL($refs.photo.files[0]);
+                       " />
 
                 <x-label for="photo" value="{{ __('Photo') }}" />
 
@@ -81,6 +81,21 @@
                 @endif
             @endif
         </div>
+
+        <!-- Contact Number -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="contact_number" value="{{ __('Contact Number') }}" />
+            <x-input id="contact_number" type="text" class="mt-1 block w-full" wire:model="state.contact_number" />
+            <x-input-error for="contact_number" class="mt-2" />
+        </div>
+
+        <!-- Address -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="address" value="{{ __('Address') }}" />
+            <x-input id="address" type="text" class="mt-1 block w-full" wire:model="state.address" />
+            <x-input-error for="address" class="mt-2" />
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">

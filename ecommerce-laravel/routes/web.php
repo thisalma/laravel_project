@@ -41,6 +41,12 @@ Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+});
+
+
     // Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
