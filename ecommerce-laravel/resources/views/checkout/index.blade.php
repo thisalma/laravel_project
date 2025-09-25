@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center space-x-4">
-            <!-- Back Button -->
             <a href="{{ route('cart.index') }}" 
                class="flex items-center px-3 py-1 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
                 <span class="text-lg mr-1">&larr;</span> Back
@@ -10,7 +9,13 @@
         </div>
     </x-slot>
 
-    <div class="py-6 max-w-4xl mx-auto">
+    <div class="py-6 max-w-3xl mx-auto">
+        @if(session('error'))
+            <div class="bg-red-100 text-red-600 p-3 rounded mb-4 text-center">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if(empty($cart))
             <p class="text-center text-gray-600">Your cart is empty.</p>
         @else
@@ -28,7 +33,7 @@
             <div class="space-y-4 mb-6">
                 @foreach($cart as $item)
                     <div class="flex items-center border-b pb-4">
-                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-24 h-24 object-cover rounded mr-4">
+                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-20 h-20 object-cover rounded mr-4">
                         <div class="flex-1">
                             <p class="font-semibold">{{ $item['name'] }}</p>
                             <p>Price: Rs. {{ number_format($item['price'], 2) }}</p>
@@ -62,7 +67,7 @@
                 </div>
 
                 <p class="text-red-600 text-sm mb-4">
-                    *Dear Customer, if your payment is Cash on Delivery, please ensure to have the correct amount on delivery.
+                    *If you selected Cash on Delivery, please prepare the exact amount.
                 </p>
 
                 <!-- TOTALS -->
@@ -72,9 +77,11 @@
                     <p>Total: Rs. {{ number_format($grandTotal, 2) }}</p>
                 </div>
 
-                <button type="submit" class="w-full bg-pink-500 text-white px-4 py-3 rounded hover:bg-pink-600 transition">
-                    Confirm Order
-                </button>
+                <div class="flex justify-center">
+                    <button type="submit" class="px-6 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+                        Confirm Order
+                    </button>
+                </div>
             </form>
         @endif
     </div>
