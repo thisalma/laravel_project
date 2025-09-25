@@ -50,5 +50,5 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Orders
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+   Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
