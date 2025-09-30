@@ -37,19 +37,27 @@
             </div>
         </div>
 
-        <!-- About Section: Text + Image -->
-<div class="mt-16 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col md:flex-row items-start gap-15">
+      <!-- About Section: Text + Image -->
+<div class="mt-16 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
     <!-- Left: Text Box -->
-    <div class="md:w-1/2 bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-3xl font-bold text-pink-600 mb-4">About Foodies</h2>
-        <p class="text-gray-700 text-lg leading-relaxed">
+    <div class="md:w-1/2 bg-white p-8 rounded-lg shadow-lg flex flex-col justify-center h-full">
+        <h2 class="text-3xl font-bold text-pink-600 mb-4 text-center md:text-left">
+            About Foodies
+        </h2>
+        <p class="text-gray-700 text-lg leading-relaxed text-center md:text-left">
             Foodies is a unique platform bringing high-quality exported food and beverages to Sri Lankan customers.
             We ensure authentic products and a seamless shopping experience, making it easier for people in Sri Lanka
             to enjoy international flavors at their doorstep.
         </p>
     </div>
 
-        
-        </div>
+    <!-- Right: Image -->
+    <div class="md:w-1/2 flex justify-center">
+        <img src="{{ asset('images/f75db914-3205-45d4-aa3c-aa9b03a5dd6c.jpg') }}" 
+             alt="About Foodies Image" 
+             class="rounded-lg shadow-lg w-full h-[350px] md:h-[450px] object-cover">
+    </div>
+</div>
+
     </div>
 </x-app-layout>
