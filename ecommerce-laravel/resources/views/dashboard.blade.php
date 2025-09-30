@@ -21,7 +21,7 @@
         <div class="w-screen overflow-hidden mt-6">
             <img src="{{ asset('images/food-pictures.jpg') }}" 
                  alt="Food Image" 
-                 class="w-full h-[150px] sm:h-[200px] md:h-[250px] object-cover">
+                 class="w-full h-[250px] sm:h-[300px] md:h-[400px] object-cover">
         </div>
 
         <!-- Two Small Boxes -->
