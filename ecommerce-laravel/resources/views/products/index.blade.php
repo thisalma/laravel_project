@@ -1,8 +1,6 @@
 <x-app-layout>
-    <!-- Page Wrapper with Light Pink Background -->
     <div class="bg-pink-50 min-h-screen">
 
-        <!-- Header Slot -->
         <x-slot name="header">
             <h2 class="text-xl font-semibold text-pink-600 text-center">Our Products</h2>
         </x-slot>
@@ -11,6 +9,18 @@
             @if(session('success'))
                 <div class="bg-green-200 p-4 rounded mb-4">{{ session('success') }}</div>
             @endif
+
+            <!-- Search Bar with Button -->
+            <div class="mb-6 relative">
+                <div class="flex">
+                    <input type="text" id="searchInput" placeholder="Search products..."
+                           class="border p-3 w-full rounded-l shadow focus:ring focus:ring-pink-200">
+                    <button id="searchButton" class="bg-pink-500 text-white px-4 rounded-r hover:bg-pink-600 transition">
+                        Search
+                    </button>
+                </div>
+                <ul id="suggestions" class="absolute top-full left-0 w-full bg-white border rounded shadow mt-1 hidden z-50"></ul>
+            </div>
 
             <!-- Admin Form -->
             @if($is_admin)
@@ -28,18 +38,15 @@
             @endif
 
             <!-- Product Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @foreach($products as $product)
-                    <div class="border p-4 rounded shadow relative flex flex-col justify-between bg-white">
-                        <!-- Product Image (click to open modal) -->
+                    <div class="product-card border p-4 rounded shadow relative flex flex-col justify-between bg-white" data-name="{{ strtolower($product->name) }}">
                         <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/150' }}" 
                              class="w-full h-40 object-cover mb-2 cursor-pointer rounded"
                              onclick="openModal({{ $product->id }})">
-
                         <h3 class="font-bold text-pink-600">{{ $product->name }}</h3>
                         <p class="text-gray-700">Rs. {{ number_format($product->price, 2) }}</p>
 
-                        <!-- Add to Cart Button -->
                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
                             @csrf
                             <button type="submit" class="mt-2 px-4 py-2 bg-yellow-500 text-black font-bold rounded hover:bg-yellow-600 transition">
@@ -63,21 +70,16 @@
                          class="fixed inset-0 bg-black bg-opacity-50 hidden overflow-y-auto z-50">
                         <div class="min-h-screen flex items-center justify-center p-6">
                             <div class="bg-white rounded shadow-lg w-3/4 max-w-3xl relative p-6">
-                                <!-- Close Button -->
                                 <button onclick="closeModal({{ $product->id }})" 
                                         class="absolute top-2 right-2 text-gray-600 text-2xl">&times;</button>
-                                
-                                <!-- Image Container -->
                                 <div class="w-full flex items-center justify-center mb-4">
                                     <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/400' }}" 
                                          class="max-h-[500px] max-w-full object-contain rounded">
                                 </div>
-
                                 <h2 class="text-2xl font-bold text-pink-600">{{ $product->name }}</h2>
                                 <p class="text-gray-600 mb-2">{{ $product->description }}</p>
                                 <p class="text-lg font-semibold mb-4">Rs. {{ number_format($product->price, 2) }}</p>
 
-                                <!-- Add to Cart in Modal -->
                                 <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="px-4 py-2 bg-yellow-500 text-black font-bold rounded hover:bg-yellow-600 transition">
@@ -93,13 +95,71 @@
 
     </div>
 
-    <!-- Modal Script -->
+    <!-- Script -->
     <script>
-        function openModal(id) {
-            document.getElementById('modal-' + id).style.display = 'block';
-        }
-        function closeModal(id) {
-            document.getElementById('modal-' + id).style.display = 'none';
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const suggestions = document.getElementById('suggestions');
+        const productCards = document.querySelectorAll('.product-card');
+
+        // Show suggestions while typing
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            suggestions.innerHTML = '';
+
+            if (query) {
+                let matches = [];
+                productCards.forEach(card => {
+                    const name = card.dataset.name;
+                    if (name.includes(query)) {
+                        matches.push(name);
+                    }
+                    card.style.display = 'none'; // hide all while typing
+                });
+
+                const uniqueMatches = [...new Set(matches)];
+                if (uniqueMatches.length > 0) {
+                    suggestions.classList.remove('hidden');
+                    uniqueMatches.forEach(match => {
+                        const li = document.createElement('li');
+                        li.textContent = match;
+                        li.className = 'px-4 py-2 cursor-pointer hover:bg-pink-100';
+                        li.onclick = () => {
+                            searchInput.value = match;
+                            suggestions.classList.add('hidden');
+                            performSearch(match);
+                        };
+                        suggestions.appendChild(li);
+                    });
+                } else {
+                    suggestions.classList.add('hidden');
+                }
+            } else {
+                suggestions.classList.add('hidden');
+                productCards.forEach(card => card.style.display = 'block'); // show all
+            }
+        });
+
+        // Handle search button click
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.toLowerCase();
+            performSearch(query);
+        });
+
+        // Handle Enter key
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = searchInput.value.toLowerCase();
+                performSearch(query);
+            }
+        });
+
+        function performSearch(query) {
+            suggestions.classList.add('hidden');
+            productCards.forEach(card => {
+                card.style.display = card.dataset.name.includes(query) ? 'block' : 'none';
+            });
         }
     </script>
 </x-app-layout>
