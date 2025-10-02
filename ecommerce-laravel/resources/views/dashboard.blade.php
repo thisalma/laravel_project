@@ -25,17 +25,29 @@
         </div>
 
         <!-- Two Small Boxes -->
-        <div class="mt-8 flex justify-between max-w-7xl mx-auto sm:px-6 lg:px-8 gap-4">
-            <!-- Left Box: FOOD -->
-            <div class="w-1/2 bg-pink-400 text-white font-bold text-center py-12 rounded-lg shadow-lg">
-                FOOD
-            </div>
-
-            <!-- Right Box: BEVERAGES -->
-            <div class="w-1/2 bg-blue-700 text-black font-bold text-center py-12 rounded-lg shadow-lg">
-                BEVERAGES
-            </div>
+<div class="mt-8 flex flex-col items-center max-w-7xl mx-auto sm:px-6 lg:px-8 gap-4">
+    <!-- Box Container -->
+    <div class="flex w-full gap-4">
+        <!-- Left Box: FOOD -->
+        <div class="w-1/2 bg-pink-400 text-white font-bold text-center py-12 rounded-lg shadow-lg">
+            FOOD
         </div>
+
+        <!-- Right Box: BEVERAGES -->
+        <div class="w-1/2 bg-blue-700 text-black font-bold text-center py-12 rounded-lg shadow-lg">
+            BEVERAGES
+        </div>
+    </div>
+
+    <!-- Go to Products Button -->
+    <div class="mt-6">
+        <a href="{{ route('products.index') }}" 
+           class="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-lg shadow-lg transition">
+            Go to Products Page
+        </a>
+    </div>
+</div>
+
 
       <!-- About Section: Text + Image -->
 <div class="mt-16 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
