@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-
+use App\Http\Controllers\Api\OrderApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -54,4 +54,4 @@ Route::middleware('auth:sanctum')->get('/mobile/me', function (Request $request)
     return $request->user();
 });
 
-
+Route::middleware('auth:sanctum')->post('/mobile/orders', [OrderApiController::class, 'store']);
