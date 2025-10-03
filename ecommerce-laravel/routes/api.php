@@ -55,3 +55,7 @@ Route::middleware('auth:sanctum')->get('/mobile/me', function (Request $request)
 });
 
 Route::middleware('auth:sanctum')->post('/mobile/orders', [OrderApiController::class, 'store']);
+// Orders
+Route::middleware('auth:sanctum')->group(function () {
+    // Fetch all orders for the user
+    Route::get('/mobile/orders', [OrderApiController::class, 'index']); });
