@@ -102,7 +102,7 @@
         const suggestions = document.getElementById('suggestions');
         const productCards = document.querySelectorAll('.product-card');
 
-        // Show suggestions while typing
+        // --- Search Functionality ---
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.toLowerCase();
             suggestions.innerHTML = '';
@@ -111,10 +111,8 @@
                 let matches = [];
                 productCards.forEach(card => {
                     const name = card.dataset.name;
-                    if (name.includes(query)) {
-                        matches.push(name);
-                    }
-                    card.style.display = 'none'; // hide all while typing
+                    if (name.includes(query)) matches.push(name);
+                    card.style.display = 'none';
                 });
 
                 const uniqueMatches = [...new Set(matches)];
@@ -136,22 +134,18 @@
                 }
             } else {
                 suggestions.classList.add('hidden');
-                productCards.forEach(card => card.style.display = 'block'); // show all
+                productCards.forEach(card => card.style.display = 'block');
             }
         });
 
-        // Handle search button click
         searchButton.addEventListener('click', () => {
-            const query = searchInput.value.toLowerCase();
-            performSearch(query);
+            performSearch(searchInput.value.toLowerCase());
         });
 
-        // Handle Enter key
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const query = searchInput.value.toLowerCase();
-                performSearch(query);
+                performSearch(searchInput.value.toLowerCase());
             }
         });
 
@@ -161,5 +155,23 @@
                 card.style.display = card.dataset.name.includes(query) ? 'block' : 'none';
             });
         }
+
+        // --- Modal Functions ---
+        function openModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // Close modal when clicking outside content
+        document.querySelectorAll('[id^="modal-"]').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.add('hidden');
+            });
+        });
     </script>
 </x-app-layout>
